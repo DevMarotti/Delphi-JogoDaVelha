@@ -1,0 +1,189 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TMatrizTabuleiro = Array[1..3] Of   Array[1..3] Of   Integer;
+
+  TfrmPrincipal = class(TForm)
+    Panel1: TPanel;
+    pbtn_1_1: TPanel;
+    sbtn_1_1: TSpeedButton;
+    pbtn_1_2: TPanel;
+    sbtn_1_2: TSpeedButton;
+    pbtn_1_3: TPanel;
+    sbtn_1_3: TSpeedButton;
+    pbtn_2_2: TPanel;
+    sbtn_2_2: TSpeedButton;
+    pbtn_2_3: TPanel;
+    sbtn_2_3: TSpeedButton;
+    pbtn_3_1: TPanel;
+    sbtn_3_1: TSpeedButton;
+    pbtn_3_2: TPanel;
+    sbtn_3_2: TSpeedButton;
+    pbtn_3_3: TPanel;
+    sbtn_3_3: TSpeedButton;
+    pbtn_2_1: TPanel;
+    sbtn_2_1: TSpeedButton;
+    procedure FormActivate(Sender: TObject);
+    procedure sbtn_1_1Click(Sender: TObject);
+    procedure sbtn_1_2Click(Sender: TObject);
+    procedure sbtn_1_3Click(Sender: TObject);
+    procedure sbtn_2_1Click(Sender: TObject);
+    procedure sbtn_2_2Click(Sender: TObject);
+    procedure sbtn_2_3Click(Sender: TObject);
+    procedure sbtn_3_1Click(Sender: TObject);
+    procedure sbtn_3_2Click(Sender: TObject);
+    procedure sbtn_3_3Click(Sender: TObject);
+  private
+    procedure inicializaTabuleiro;
+    procedure realizaJogada(L, C : Integer; var escolha: Integer; var Sender: TObject);
+    procedure alternarEscolha(var escolha: Integer);
+    procedure verificaVitoria(var tabuleiro : TMatrizTabuleiro);
+    function AplicaImagem(escolha: Integer): String;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+const VALOR_O = 0;
+const VALOR_X = 1;
+
+var
+  tabuleiro : TMatrizTabuleiro;
+  escolha   : Integer;
+
+// ------------------------------------------------------ form
+procedure TfrmPrincipal.FormActivate(Sender: TObject);
+begin
+  inicializaTabuleiro;
+  escolha := VALOR_X;
+end;
+
+// --------------------------------------------
+procedure TfrmPrincipal.inicializaTabuleiro;
+var
+  linha, coluna : Integer;
+begin
+  for linha := 1 to 3 do
+    for coluna := 1 to 3 do
+       tabuleiro[linha][coluna] := -1;
+end;
+
+procedure TfrmPrincipal.realizaJogada(L, C: Integer; var escolha: Integer; var Sender: TObject);
+begin
+  if not (tabuleiro[L][C] in [VALOR_X, VALOR_O]) then
+  begin
+    tabuleiro[L][C] := escolha;
+    TSpeedButton(Sender).Caption := AplicaImagem(escolha);
+    alternarEscolha(escolha);
+  end
+
+end;
+
+// --------------------------------------------------------- Botões
+procedure TfrmPrincipal.sbtn_1_1Click(Sender: TObject);
+begin
+  // posição : 1 x 1
+  realizaJogada(1,1, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_1_2Click(Sender: TObject);
+begin
+  // posição : 1 x 2
+  realizaJogada(1,2, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_1_3Click(Sender: TObject);
+begin
+  // posição : 1 x 3
+  realizaJogada(1,3, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_2_1Click(Sender: TObject);
+begin
+  // posição : 2 x 1
+  realizaJogada(2,1, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_2_2Click(Sender: TObject);
+begin
+  // posição : 2 x 2
+  realizaJogada(2,2, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_2_3Click(Sender: TObject);
+begin
+  // posição : 2 x 3
+  realizaJogada(2,3, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_3_1Click(Sender: TObject);
+begin
+  // posição : 3 x 1
+  realizaJogada(3,1, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_3_2Click(Sender: TObject);
+begin
+  // posição : 3 x 2
+  realizaJogada(3,2, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.sbtn_3_3Click(Sender: TObject);
+begin
+  // posição : 3 x 3
+  realizaJogada(3,3, escolha, Sender);
+  verificaVitoria(tabuleiro);
+end;
+
+
+
+
+
+// ---------------------------------------------------------------- Ações
+procedure TfrmPrincipal.alternarEscolha(var escolha : Integer);
+begin
+  if (escolha = VALOR_X) then
+    escolha := VALOR_O
+  else
+    escolha := VALOR_X;
+end;
+
+
+function TfrmPrincipal.AplicaImagem(escolha : Integer) : String;
+begin
+  if escolha = VALOR_X then
+    Result := 'X'
+  else
+    Result := 'O';
+end;
+
+procedure TfrmPrincipal.verificaVitoria(var tabuleiro: TMatrizTabuleiro);
+begin
+    //
+end;
+
+
+// ----------------------------------------------------------- botões
+end.

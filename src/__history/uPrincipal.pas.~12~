@@ -1,0 +1,205 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TMatrizTabuleiro = Array[1..3] Of   Array[1..3] Of   Integer;
+
+  TfrmPrincipal = class(TForm)
+    btn_1_1: TBitBtn;
+    btn_1_2: TBitBtn;
+    btn_1_3: TBitBtn;
+    btn_2_1: TBitBtn;
+    btn_2_2: TBitBtn;
+    btn_2_3: TBitBtn;
+    btn_3_1: TBitBtn;
+    btn_3_2: TBitBtn;
+    btn_3_3: TBitBtn;
+    procedure btn_1_1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure btn_1_2Click(Sender: TObject);
+    procedure btn_1_3Click(Sender: TObject);
+    procedure btn_2_1Click(Sender: TObject);
+    procedure btn_2_2Click(Sender: TObject);
+    procedure btn_2_3Click(Sender: TObject);
+    procedure btn_3_1Click(Sender: TObject);
+    procedure btn_3_2Click(Sender: TObject);
+    procedure btn_3_3Click(Sender: TObject);
+  private
+    procedure inicializaTabuleiro;
+    procedure realizaJogada(L, C : Integer; var escolha: Integer);
+    procedure alternarEscolha(var escolha: Integer);
+    procedure verificaVitoria(var tabuleiro : TMatrizTabuleiro);
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+const VALOR_O = 0;
+const VALOR_X = 1;
+var
+  tabuleiro : TMatrizTabuleiro;
+  escolha   : Integer;
+
+// ------------------------------------------------------ form
+procedure TfrmPrincipal.FormActivate(Sender: TObject);
+begin
+  inicializaTabuleiro;
+  escolha := VALOR_X;
+end;
+
+// --------------------------------------------
+procedure TfrmPrincipal.inicializaTabuleiro;
+var
+  linha  : Integer;
+  coluna : Integer;
+begin
+  for linha := 1 to 3 do
+    for coluna := 1 to 3 do
+       tabuleiro[linha][coluna] := -1;
+end;
+
+procedure TfrmPrincipal.realizaJogada(L, C: Integer; var escolha: Integer);
+begin
+  if (tabuleiro[L][C] = -1) then
+  begin
+    tabuleiro[L][C] := escolha;
+    alternarEscolha(escolha);
+  end;
+end;
+
+procedure TfrmPrincipal.verificaVitoria(var tabuleiro: TMatrizTabuleiro);
+var
+  linha   : Integer;
+  coluna  : Integer;
+  vitoria : Integer;
+begin
+vitoria := 0;
+// verifica linha-linha
+ for linha := 1 to 3 do
+   for coluna := 1 to 3 do
+   begin
+   // calcular deoutra forma
+     //vitoria := vitoria + tabuleiro[linha][coluna];
+     if vitoria = 3 then
+       ShowMEssage('Ganhou !');
+      exit;
+   end;
+
+
+
+end;
+
+procedure TfrmPrincipal.alternarEscolha(var escolha : Integer);
+begin
+  if (escolha = VALOR_X) then
+    escolha := VALOR_O
+  else
+    escolha := VALOR_X;
+end;
+
+
+
+
+
+// ----------------------------------------------------------- botões
+procedure TfrmPrincipal.btn_1_1Click(Sender: TObject);
+begin
+  // posição : 1 x 1
+  btn_1_1.Caption := IntToStr(escolha);
+  btn_1_1.Enabled := False;
+  realizaJogada(1,1, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_1_2Click(Sender: TObject);
+begin
+  // posição : 1 x 2
+  btn_1_2.Caption := IntToStr(escolha);
+  btn_1_2.Enabled := False;
+  realizaJogada(1,2, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_1_3Click(Sender: TObject);
+begin
+  // posição : 1 x 3
+  btn_1_3.Caption := IntToStr(escolha);
+  btn_1_3.Enabled := False;
+  realizaJogada(1,3, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_2_1Click(Sender: TObject);
+begin
+  // posição : 2 x 1
+  btn_2_1.Caption := IntToStr(escolha);
+  btn_2_1.Enabled := False;
+  realizaJogada(2,1, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_2_2Click(Sender: TObject);
+begin
+  // posição : 2 x 2
+  btn_2_2.Caption := IntToStr(escolha);
+  btn_2_2.Enabled := False;
+  realizaJogada(2,2, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_2_3Click(Sender: TObject);
+begin
+  // posição : 2 x 3
+  btn_2_3.Caption := IntToStr(escolha);
+  btn_2_3.Enabled := False;
+  realizaJogada(2,3, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_3_1Click(Sender: TObject);
+begin
+  // posição : 3 x 1
+  btn_3_1.Caption := IntToStr(escolha);
+  btn_3_1.Enabled := False;
+  realizaJogada(3,1, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_3_2Click(Sender: TObject);
+begin
+  // posição : 3 x 2
+  btn_3_2.Caption := IntToStr(escolha);
+  btn_3_2.Enabled := False;
+  realizaJogada(3,2, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+procedure TfrmPrincipal.btn_3_3Click(Sender: TObject);
+begin
+  // posição : 3 x 3
+  btn_3_3.Caption := IntToStr(escolha);
+  btn_3_3.Enabled := False;
+  realizaJogada(3,3, escolha);
+  verificaVitoria(tabuleiro);
+end;
+
+
+
+
+
+
+
+end.
