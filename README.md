@@ -1,3 +1,7 @@
+![GitHub top language](https://img.shields.io/github/languages/top/DevMarotti/Delphi-JogoDaVelha?label=Delphi&logo=Delphi)
+![GitHub repo size](https://img.shields.io/github/repo-size/DevMarotti/Delphi-JogoDaVelha)
+![GitHub](https://img.shields.io/github/license/DevMarotti/Delphi-JogoDaVelha)
+
 # Delphi :: Jogo da Velha
 
 ### Informações
